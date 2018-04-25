@@ -105,6 +105,20 @@ app.post('/recipes', jsonParser, (req, res) => {
   res.status(201).json(item);
 });
 
+//app. put
+
+app.put('/recipes/:id', jsonParser, (req,res) =>{
+  const requiredFields = ['name', 'ingredients'];
+  for(let i =0; i<requiredFields.length; i++) {
+
+    const field = requiredFields[i];
+    if(!(field in req.body)) {
+  const message = `Missing \`${field}\` in request body`
+  console.error(message);
+  return res.status(400).send(message);
+}
+  }
+  
 app.delete('/recipes/:id', (req, res) => {
   Recipes.delete(req.params.id);
   console.log(`Deleted recipe \`${req.params.ID}\``);
